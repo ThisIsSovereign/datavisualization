@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>World Population 1951-2017</title>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+  </head>
+  <body>
+
+    <select id="data-selector">
+      <option value="World Population">World Population</option>
+      <option value="Net Change">Net Change</option>
+    </select>
+
+    <div id="container">
+    </div>
+
+    <script type="text/javascript">
+
+      // Data Sets
+      var worldPopulation =
+                  [
+                    2571867515, 2617940399, 2664029010, 2710677773, 2758314525, 2807246148, 2857662910, 2909651396,
+                    2963216053, 3018343828, 3075073173, 3133554362, 3194075347, 3256988501, 3322495121,
+                    3390685523, 3461343172, 3533966901, 3607865513, 3682487691, 3757734668, 3833594894,
+                    3909722120, 3985733775, 4061399228, 4136542070, 4211322427, 4286282447, 4362189531,
+                    4439632465, 4518602042, 4599003374, 4681210508, 4765657562, 4852540569, 4942056118,
+                    5033804944, 5126632694, 5218978019, 5309667699, 5398328753, 5485115276, 5570045380,
+                    5653315893, 5735123084, 5815392305, 5894155105, 5971882825, 6049205203, 6126622121,
+                    6204310739, 6282301767, 6360764684, 6439842408, 6519635850, 6600220247, 6681607320,
+                    6763732879, 6846479521, 6929725043, 7013427052, 7097500453, 7181715139, 7265785946,
+                    7349472099, 7432663275, 7515284153
+                  ]
+
+      var netChange =
+                  [
+                    46718203, 46072884, 46088611, 46648763,	47636752, 48931623, 50416762, 51988486, 53564657, 55127775,
+                    56729345, 58481189, 60520985, 62913154, 65506620, 68190402, 70657649, 72623729, 73898612, 74622178,
+                    75246977, 75860226, 76127226, 76011655, 75665453, 75142842, 74780357, 74960020, 75907084, 77442934,
+                    78969577, 80401332, 82207134, 84447054, 86883007, 89515549, 91748826, 92827750, 92345325, 90689680,
+                    88661054, 86786523, 84930104, 83270513, 81807191, 80269221, 78762800, 77727720, 77322378, 77416918,
+                    77688618, 77991028, 78462917, 79077724, 79793442, 80584397, 81387073, 82125559, 82746642, 83245522,
+                    83702009, 84073401, 84214686, 84070807, 83686153, 83191176, 82620878
+                  ]
+
+      // Listen for data-selector Changes
+      var selector = document.getElementById("data-selector");
+
+      selector.addEventListener("change", selectData, false)
+
+      // Setup HighCharts Chart
+      var chart = Highcharts.chart('container',
+        {
+          title: {
+              text: 'World Population, 1951-2017'
+          },
+
+          subtitle: {
+              text: 'Source: United Nations Population Division'
+          },
+
+          yAxis: {
+              title: {
+                  text: 'World Population'
+              }
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle'
+          },
+
+          plotOptions: {
+              series: {
+                  pointStart: 1951
+              }
+          },
+
+          series:
+          [
+            {
+              name: 'World Population',
+              data:
+              [
+                   2571867515, 2617940399, 2664029010, 2710677773, 2758314525, 2807246148, 2857662910, 2909651396,
+                   2963216053, 3018343828, 3075073173, 3133554362, 3194075347, 3256988501, 3322495121,
+                   3390685523, 3461343172, 3533966901, 3607865513, 3682487691, 3757734668, 3833594894,
+                   3909722120, 3985733775, 4061399228, 4136542070, 4211322427, 4286282447, 4362189531,
+                   4439632465, 4518602042, 4599003374, 4681210508, 4765657562, 4852540569, 4942056118,
+                   5033804944, 5126632694, 5218978019, 5309667699, 5398328753, 5485115276, 5570045380,
+                   5653315893, 5735123084, 5815392305, 5894155105, 5971882825, 6049205203, 6126622121,
+                   6204310739, 6282301767, 6360764684, 6439842408, 6519635850, 6600220247, 6681607320,
+                   6763732879, 6846479521, 6929725043, 7013427052, 7097500453, 7181715139, 7265785946,
+                   7349472099, 7432663275, 7515284153
+              ]
+            }
+          ]
+
+        }
+      );
+
+      // Update Data & Name of HighCharts Series based on current data-selector selection
+      function selectData()
+      {
+        var selectorChoice = selector.value
+        console.log(selectorChoice)
+
+        if (selectorChoice == "World Population")
+        {
+          selectedData = worldPopulation;
+          chart.series[0].setData(selectedData);
+          chart.series[0].update({name:"World Population"}, false);
+          chart.redraw();
+        }
+        else if (selectorChoice == "Net Change")
+        {
+          selectedData = netChange;
+          chart.series[0].setData(selectedData);
+          chart.series[0].update({name:"Net Change"}, false);
+          chart.redraw();
+        }
+        console.log(selectedData)
+      }
+
+    </script>
+  </body>
+</html>
